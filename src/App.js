@@ -22,6 +22,8 @@ function App() {
   const [data, setData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [enablePagination, setEnablePagination] = useState(true);
+  const [isPerPage, setIsPerPage] = useState(true);
 
   const columns = [
     { heading: 'Name', value: 'name', sortable: true },
@@ -39,7 +41,6 @@ function App() {
     setData(sortedData);
   };
 
-  const enablePagination = false;
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = data.slice(indexOfFirstRow, indexOfLastRow);
@@ -51,6 +52,12 @@ function App() {
       <header>
         <h1>Dynamic Table</h1>
       </header>
+      <button onClick={() => setEnablePagination(!enablePagination)}>
+        {enablePagination ? 'Disable Pagination' : 'Enable Pagination'}
+      </button>
+      <button onClick={() => setIsPerPage(!isPerPage)}>
+        {isPerPage ? 'Hide Per Page Option' : 'Show Per Page Option'}
+      </button>
       <Table data={enablePagination ? currentRows : data} column={columns} sortData={sortData} />
       {enablePagination && (
       <Pagination
@@ -59,6 +66,7 @@ function App() {
         rowsPerPage={rowsPerPage}
         paginate={paginate}
         setRowsPerPage={setRowsPerPage}
+        isPerPage={isPerPage}
       />
     )}
     </div>

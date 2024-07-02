@@ -36,13 +36,13 @@ table {
     color: #009879;
   }
   
-  button {
+  /* button {
     background-color: transparent;
     border: none;
     cursor: pointer;
     color: #ffffff;
     font-size: 1em;
-  }
+  } */
   
   button:hover {
     color: #fed8b1;
