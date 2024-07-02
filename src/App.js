@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Table from './components/Table';
+import Pagination from './components/Pagination';
 
 function App() {
   const initialData = [
@@ -16,18 +17,17 @@ function App() {
     { name: 'Nicholas Runolfsdottir V', email: 'Sherwood@rosamond.me', phone: '586.493.6943 x140', address: 'Ellsworth Summit, Suite 729, Aliyaview, 45169' },
     { name: 'Glenna Reichert', email: 'Chaim_McDermott@dana.io', phone: '(775)976-6794 x41206', address: 'Dayna Park, Suite 449, Bartholomebury, 76495-3109' },
     { name: 'Clementina DuBuque', email: 'Rey.Padberg@karina.biz', phone: '024-648-3804', address: 'Kattie Turnpike, Suite 198, Lebsackbury, 31428-2261' }
-];
-
+  ];
 
   const [data, setData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const columns = [
-    { heading: 'Name', value: 'name'},
-    { heading: 'Email', value: 'email'},
-    { heading: 'Phone', value: 'phone'},
-    { heading: 'Address', value: 'address'},
+    { heading: 'Name', value: 'name', sortable: true },
+    { heading: 'Email', value: 'email', sortable: true },
+    { heading: 'Phone', value: 'phone', sortable: false },
+    { heading: 'Address', value: 'address', sortable: false },
   ];
 
   const sortData = (value, order = 'asc') => {
@@ -39,6 +39,7 @@ function App() {
     setData(sortedData);
   };
 
+  const enablePagination = false;
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = data.slice(indexOfFirstRow, indexOfLastRow);
@@ -50,14 +51,16 @@ function App() {
       <header>
         <h1>Dynamic Table</h1>
       </header>
-      <Table data={currentRows} column={columns} sortData={sortData}/>
-      <div className="pagination">
-        {Array.from({ length: Math.ceil(data.length / rowsPerPage) }, (_, index) => (
-          <button key={index} onClick={() => paginate(index + 1)} className={currentPage === index + 1 ? 'active' : ''}>
-            {index + 1}
-          </button>
-        ))}
-      </div>
+      <Table data={enablePagination ? currentRows : data} column={columns} sortData={sortData} />
+      {enablePagination && (
+      <Pagination
+        currentPage={currentPage}
+        totalItems={data.length}
+        rowsPerPage={rowsPerPage}
+        paginate={paginate}
+        setRowsPerPage={setRowsPerPage}
+      />
+    )}
     </div>
   );
 }

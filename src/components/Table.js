@@ -22,13 +22,17 @@ const Table = ({ data, column, sortData }) => {
 };
 
 const TableHeadItem = ({ item, sortData }) => {
-  return (
-    <th>
-      {item.heading}
-      <button onClick={() => sortData(item.value, "asc")}>↑</button>
-      <button onClick={() => sortData(item.value, "desc")}>↓</button>
-    </th>
-  );
+    return (
+      <th>
+        {item.heading}
+        {item.sortable && (
+          <>
+            <button onClick={() => sortData(item.value, "asc")}>↑</button>
+            <button onClick={() => sortData(item.value, "desc")}>↓</button>
+          </>
+        )}
+      </th>
+    );
 };
 
 const TableRowItem = ({ item, column }) => (

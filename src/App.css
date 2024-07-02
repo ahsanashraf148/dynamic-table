@@ -38,3 +38,24 @@ header {
   border: 2px solid #000;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
+
+.pagination .rows-per-page {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem; 
+}
+
+.pagination .rows-per-page label {
+  margin-top: 10px;
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.pagination .rows-per-page select {
+  margin-top: 15px;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
